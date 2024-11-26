@@ -1,0 +1,302 @@
+:root {
+  --background-color: #181818;
+  --container-background-color: #1e1e1e;
+  --text-color: #ffffff;
+  --input-background-color: #001a39;
+  --input-border-color: #00214a;
+  --hover-background-color: #001f43;
+  --play-button-background-color: #004fff;
+  --play-button-color: #ffffff;
+  --tag-background-color: #1e1e1e;
+  --tag-hover-background-color: #333333;
+  --primary-color: #004fff;
+  --secondary-color: #0077ff;
+  --card-title-color: #fff;
+  --body-background-color: #000811;
+  --card-container-background-color: #000e1e;
+  --topbar-and-footer-container-background-color: #002652;
+  --side-bar-container-color: #001329;
+  --side-bar-item-hover-color:#004fff;
+  --footer-background:#00346c;
+  --footer-button-hover:#004fff;
+}
+
+/* General Styling for Main Page */
+.main-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #333;
+  z-index: 1000; /* Ensure it stays above the map and other elements */
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  padding: 1.25rem; /* Padding relative to font size */
+  background-color: #00346c;
+  text-align: center;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 1.5rem; /* 24px equivalent */
+}
+
+.sidebar-header p {
+  margin: 0.5rem 0 0;
+  font-size: 1rem; /* 16px equivalent */
+}
+
+.sidebar-items {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+
+}
+
+.sidebar-items li {
+  padding: 1rem;
+  cursor: pointer;
+  border: none; /* Remove any borders */
+  margin: 0; /* Optional: reset margins */
+  padding: 0; /* Optional: reset padding */
+
+}
+
+
+.menu-item-link{
+  display: flex;
+  gap: 5%;
+  align-items: center;
+  padding: 20px 15px;
+  color: white;
+  text-decoration: none; /* Removes underline */
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+
+}
+
+.menu-item-link:hover{
+  background-color: var(--side-bar-item-hover-color);
+}
+
+.logout-button{
+  display: flex;
+  gap: 5%;
+  align-items: center;
+  padding: 10px 15px;
+  color: white;
+  text-decoration: none; /* Removes underline */
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover{
+  background-color: var(--side-bar-item-hover-color);
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Top-right Support Button */
+.support-button-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}
+
+.support-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--footer-background);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* .support-icon {
+  margin-right: 0.5rem;
+} */
+
+.support-button:hover {
+  background-color: #0056b3;
+}
+
+/* Map Section */
+.map-section {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  position: relative; /* Required to position children absolutely within */
+  z-index: 0; /* Send the map to the back */
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  position: absolute; /* Ensures it fills its container */
+  z-index: 0; /* Map will remain behind other elements */
+}
+
+/* Bottom Controls */
+.bottom-controls {
+  display: flex; /* Always use row flex layout */
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem;
+  /* background-color: rgba(255, 255, 255, 0.8); 
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); */
+  position: fixed; /* Float over the map */
+  bottom: 80px; /* Ensure it does not overlap the footer */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10; /* Higher than the map to appear above */
+}
+
+.menu-toggle-button,
+.scan-to-ride-button,
+.new-rental-button,
+.user-position-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1rem;
+  background-color: var(--footer-background);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  outline: none; /* Removes the blue outline */
+  /* Did it the following */
+  -webkit-tap-highlight-color: transparent; 
+
+}
+
+.menu-toggle-button:hover,
+.scan-to-ride-button:hover,
+.new-rental-button:hover,
+.user-position-button:hover {
+  background-color: var(--footer-button-hover);
+}
+
+.menu-toggle-button:focus, .menu-toggle-button:active, .menu-toggle-button:focus-visible {
+  outline: none; /* Remove the default outline */
+}
+
+
+.scan-to-ride-button span{
+  margin-left: 8px;
+}
+
+.scan-icon,
+.position-icon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  background-color: var(--footer-background);
+  color: #fff;
+  font-size: 0.9rem;
+  position: relative; /* Ensure it's placed correctly above the map */
+  z-index: 10; /* Higher than the map to appear above */
+  width: 100%;
+  bottom: 0;
+  position: fixed; /* Stick to the bottom */
+}
+
+.footer-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  background-color: var(--footer-background);
+  color: #fff;
+  border: none;
+  padding: 1.5rem;
+  cursor: pointer;
+  flex-grow: 1;
+  margin: 0 0.5rem;
+  -webkit-tap-highlight-color: transparent; 
+}
+
+.footer-button,
+.menu-button {
+  color: white;
+  font-size: 1.125rem;
+  cursor: pointer;
+  margin: 0;
+  
+}
+
+/* .footer-button:hover {
+} */
+
+.footer-button.active {
+  background-color: var(--footer-button-hover);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .bottom-controls {
+      bottom: 6rem; /* Adjust for smaller screens to prevent overlap with footer */
+      width: 90%; /* Adjust width for smaller screens */
+  }
+
+  .menu-toggle-button,
+  .scan-to-ride-button,
+  .user-position-button {
+      margin: 0 0.5rem; /* Keep horizontal spacing */
+      width: auto; /* Ensure buttons do not take full width */
+  }
+
+  .scan-icon,
+  .position-icon {
+      font-size: 1rem;
+  }
+}
+
+.bottom-icon-image {
+  width: 22px; /* Adjust as needed */
+  height: 22px; /* Adjust as needed */
+  vertical-align: middle; /* Aligns the icon with the text */
+}
+

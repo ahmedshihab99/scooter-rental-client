@@ -1,0 +1,50 @@
+{
+    "admin": "الإدارة",
+    "maps": "الخرائط",
+    "marketing": "التسويق",
+    "finance": "المالية",
+    "dashboard": "لوحة التحكم",
+    "human_resources": "الموارد البشرية",
+    "rent": "التأجير",
+    "warehouse": "المستودع",
+    
+    "management": "الإدارة",
+    
+    "location": "الموقع",
+    "heat_map": "خريطة الحرارة",
+    "countries": "الدول",
+    "cities": "المدن",
+    "areas": "المناطق",
+    "geofence": "المنطقة الحدودية",
+    
+    
+    "customers": "العملاء",
+    "rent_list": "قائمة التأجير",
+    "subscribe": "الاشتراك",
+    "promo": "الترويج",
+    "vouchers": "القسائم",
+    "notifications": "الإشعارات",
+    
+    "transactions": "المعاملات",
+    "transfer_list": "قائمة التحويلات",
+    "refund_list": "قائمة الاستردادات",
+    
+    "scooter_activities": "أنشطة السكوتر",
+    "statistics": "الإحصائيات",
+    "active_scooters": "السكوترات النشطة",
+    
+    "staff": "الموظفون",
+    "staff_rides": "تنقلات الموظفين",
+    "roles": "الأدوار",
+    
+    "activities": "الأنشطة",
+    
+    "scooters": "السكوترات",
+    
+    "menu_icon_tooltip": "تبديل الشريط الجانبي",
+    "username": "اسم المستخدم",
+    "language": "اللغة",
+    
+    "english": "الإنجليزية",
+    "french": "الفرنسية"
+  }  

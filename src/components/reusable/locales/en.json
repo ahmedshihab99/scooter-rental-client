@@ -1,0 +1,51 @@
+{
+    "dashboard": "Dashboard",
+    "maps": "Maps",
+    "marketing": "Marketing",
+    "finance": "Finance",
+    "human_resources": "HR",
+    "rent": "Rent",
+    "warehouse": "Warehouse",
+    
+    "management": "Management",
+    
+    "location": "Location",
+    "heat_map": "Heat Map",
+    "countries": "Countries",
+    "cities": "Cities",
+    "areas": "Areas",
+    
+    "geofence": "Geofence",
+    
+    "customers": "Customers",
+    "rent_list": "Rent List",
+    "subscribe": "Subscribe",
+    "promo": "Promo",
+    "vouchers": "Vouchers",
+    "notifications": "Notifications",
+    
+    "billing": "Billing",
+    "transactions": "Transactions",
+    "transfer_list": "Transfer List",
+    "refund_list": "Refund List",
+    
+    "scooter_activities": "Scooter Activities",
+    "statistics": "Statistics",
+    "active_scooters": "Active Scooters",
+    
+    "staff": "Staff",
+    "staff_rides": "Staff Rides",
+    "roles": "Roles",
+    
+    "activities": "Activities",
+    
+    "scooters": "Scooters",
+    
+    "menu_icon_tooltip": "Toggle Sidebar",
+    "username": "Username",
+    "language": "Language",
+    
+    "english": "English",
+    "french": "French"
+  }
+  

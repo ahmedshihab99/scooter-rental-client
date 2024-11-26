@@ -1,38 +1,103 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 16px; /* Base font size for rem calculations */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+button, li{
+  -webkit-tap-highlight-color: transparent; 
+}
+
+.main-page {
+  flex: 1;
+  position: relative;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60vw; /* Sidebar width relative to viewport width */
+  max-width: 20rem; /* Maximum width for larger screens */
+  height: 100vh; /* Full height of the viewport */
+  background-color: #007bff;
   color: white;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar.open {
+  transform: translateX(0);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+.sidebar-items {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #002348;
+}
+
+.sidebar-items li {
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.1rem; /* Slightly larger for better readability */
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
+.sidebar-items .logout {
+  color: rgb(255, 77, 77);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem; /* 24px equivalent */
+  color: white;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+/* Mobile controls */
+.mobile-controls {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 1rem;
+  z-index: 1000;
+}
+
+.control-button,
+.menu-button {
+  background: white;
+  color: black;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.control-button:hover,
+.menu-button:hover {
+  background: lightgray;
 }
