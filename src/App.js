@@ -15,42 +15,42 @@ import RideNow from "./components/pages/ride-now/RideNow";
 
 import { LanguageProvider } from "./components/reusable/locales/LanguageContext";
 import AuthService from "./components/services/AuthService";
-
 import User from "./components/models/User";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const App = () => {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8900";
-  const [user, setUser] = useState(AuthService.getCurrentUser());
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  // Always remember that useEffect renders when the component mounts
   useEffect(() => {
-    const currentUser = AuthService.getCurrentUser();
-    setUser(currentUser);
+    const fetchUser = async () => {
+      const currentUser = AuthService.getCurrentUser();
+      if (currentUser) {
+        setUser(currentUser);
+      } 
+      
+      setLoading(false);
+    };
 
-    if (!currentUser) {
-      (async () => {
-        try {
-          const response = await fetch(`${API_BASE_URL}/session_user`);
-          const data = await response.json();
-          const userData = User.fromJson(data);
-          setUser(userData);
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      })();
+    fetchUser();
+  }, [API_BASE_URL]);
+
+  const PublicRoute = ({ children }) => {
+    return user ? <Navigate to="/" /> : children;
+  };
+
+  const PrivateRoute = ({ children }) => {
+    console.log(`PR user is: ${AuthService.getCurrentUser()}`)
+    if (loading) {
+      return (
+        <div className="loading-spinner">
+          <ClipLoader color="#3498db" size={90} />
+        </div>
+      );
     }
-  }, []);
-
-  const PublicRoute = ({ user, children }) => {
-    return user?.token ? <Navigate to="/" /> : children;
-  };
-
-  const PrivateRoute = ({ user, children }) => {
-    return user?.token ? children : <Navigate to="/login" />;
-  };
-
-  const handleLogout = () => {
-    setUser(null);
+    return AuthService.getCurrentUser() ? children : <Navigate to="/login" />;
   };
 
   const LazyWrapper = ({ children }) => (
@@ -61,59 +61,64 @@ const App = () => {
         </div>
       }
     >
-      {user ? children : <div>Loading user data...</div>}
+      {children}
     </Suspense>
   );
+
+  const handleLogout = () => {
+    setUser(null);
+    AuthService.logout(); // Add this line if you have a logout method
+  };
 
   return (
     <LanguageProvider>
       <Router>
-        <Routes>
-          {/* Public routes */}
-          <Route
-            path="/login"
-            element={
-              <PublicRoute user={user}>
-                <Login setUser={setUser} />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <PublicRoute user={user}>
-                <SignUp />
-              </PublicRoute>
-            }
-          />
-
-          {/* Private or authenticated access routes */}
-          <Route
-            path="/ride-now"
-            element={
-              <PrivateRoute user={user}>
-                <RideNow user={user} onLogout={handleLogout} />
-              </PrivateRoute>
-            }
-          />
-
-          <Route
-            path="/"
-            element={<MainPage user={user} onLogout={handleLogout} />}
-          >
+        {loading ? (
+          <div className="loading-spinner">
+            <ClipLoader color="#3498db" size={90} />
+          </div>
+        ) : (
+          <Routes>
             <Route
-              path="/day-rentals"
+              path="/login"
               element={
-                <LazyWrapper>
-                  <DayRentals user={user} onLogout={handleLogout} />
-                </LazyWrapper>
+                <PublicRoute>
+                  <Login setUser={setUser} />
+                </PublicRoute>
               }
             />
-          </Route>
-
-          {/* Fallback for unknown routes */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+            <Route
+              path="/signup"
+              element={
+                <PublicRoute>
+                  <SignUp />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/ride-now"
+              element={
+                <PrivateRoute>
+                  <RideNow/>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/"
+              element={<MainPage user={user} onLogout={handleLogout} />}
+            >
+              <Route
+                path="/day-rentals"
+                element={
+                  <LazyWrapper>
+                    <DayRentals user={user} onLogout={handleLogout} />
+                  </LazyWrapper>
+                }
+              />
+            </Route>
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        )}
       </Router>
     </LanguageProvider>
   );

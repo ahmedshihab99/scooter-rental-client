@@ -10,7 +10,7 @@ import RidingGuidesBarComponent from "../bars/RidingGuidesBarComponent";
 import BottomControls from "../BottomControls";
 import { ClipLoader } from "react-spinners";
 
-const MainPage = ({ onLogout }) => {
+const MainPage = ({user, onLogout }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ const MainPage = ({ onLogout }) => {
 
   // Handle close event for Riding Guides Bar
   const handleRidingGuidesClose = () => setShowRidingGuides(false);
+  // console.log(`MainPage user is ${AuthService.getCurrentUser()}`);
 
   // Fetch user and ensure valid session
   useEffect(() => {

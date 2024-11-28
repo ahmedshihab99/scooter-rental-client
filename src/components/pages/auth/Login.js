@@ -14,7 +14,7 @@ const Login = () => {
   try {
     const user = await AuthService.login(email, password);
     setError("");
-    navigate("/"); // Navigate to the main dashboard
+    navigate("/main"); // Navigate to the main dashboard
   } catch (err) {
     setError("Invalid email or password");
   }
