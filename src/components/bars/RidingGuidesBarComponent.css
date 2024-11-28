@@ -1,0 +1,87 @@
+.riding-guides-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--footer-background);
+    color: var(--text-color);
+    padding: 30px;
+    padding-bottom: 20px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+
+  }
+  
+  .riding-guides-bar-content h2 {
+    font-size: 24px;
+    color: #0091ff;
+  }
+  
+  .riding-guides-bar-content ul {
+    padding: 0;
+    list-style: none;
+  }
+  
+  .riding-guides-bar-content li {
+    margin: 8px 0;
+    font-size: 18px;
+  }
+  
+  .riding-guides-bar-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+  .riding-guides-bar a{
+    color: #0091ff;
+    text-decoration: none;
+    align-self: center;
+  }
+
+  .riding-guides-bar .icons{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .riding-guides-bar .icon{
+    height: 4rem;
+    /* width: 20px; */
+  }
+
+  .riding-guides-bar .ride-guid-li{
+    align-items: center;
+  }
+
+  .riding-guides-bar p{
+    color: #0071c8;
+  }
+  
+  .cancel-button,
+  .ride-now-button {
+    padding: 1rem 10%;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  
+  .cancel-button {
+    background-color: var(--hover-background-color);
+    color: var(--text-color);
+  }
+  
+  .ride-now-button {
+    background-color: var(--primary-color);
+    color: var(--play-button-color);
+  }
+
+  @media(min-width:900px){
+    .riding-guides-bar{
+        margin: 0 10rem;
+    }
+  }
+  

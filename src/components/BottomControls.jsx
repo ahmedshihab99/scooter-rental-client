@@ -2,7 +2,7 @@ import React from "react";
 import ScanIcon from "../assets/scan-icon.png";
 import UserPositionIcon from "../assets/user-position.png";
 
-const BottomControls = ({ handleMenuClick, route }) => {
+const BottomControls = ({ handleMenuClick, route, showRidingGuides }) => {
   return (
     <div className="bottom-controls">
       <button className="menu-toggle-button" onClick={handleMenuClick}>
@@ -11,7 +11,10 @@ const BottomControls = ({ handleMenuClick, route }) => {
 
       {route === "main" ? (
         <>
-          <button className="scan-to-ride-button">
+          <button
+            className="scan-to-ride-button"
+            onClick={showRidingGuides} // Show Riding Guides on button click
+          >
             <img src={ScanIcon} alt="Scan Icon" className="bottom-icon-image" />
             <span>Scan to Ride</span>
           </button>

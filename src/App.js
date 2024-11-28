@@ -1,6 +1,11 @@
 // React and libraries
 import React, { useState, useEffect, Suspense } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 
 // Styles and assets
 import "./App.css";
@@ -10,6 +15,7 @@ import MainPage from "./components/pages/MainPage";
 import Login from "./components/pages/auth/Login";
 import SignUp from "./components/pages/auth/SignUp";
 import DayRentals from "./components/pages/day-rentals/DayRentals";
+import RideNow from "./components/pages/ride-now/RideNow";
 
 // Contexts and services
 import { LanguageProvider } from "./components/reusable/locales/LanguageContext";
@@ -22,7 +28,8 @@ import User from "./components/models/User";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const App = () => {
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8900";
+  const API_BASE_URL =
+    process.env.REACT_APP_API_BASE_URL || "http://localhost:8900";
 
   const [user, setUser] = useState(AuthService.getCurrentUser());
 
@@ -48,6 +55,10 @@ const App = () => {
   // Public route component
   const PublicRoute = ({ user, children }) => {
     return user?.token ? <Navigate to="/" /> : children;
+  };
+
+  const PublicRouteNotAuth  = ({ user, children }) => {
+    return user?.token ?  children :  <Navigate to="/" />;
   };
 
   // Handle logout
@@ -93,21 +104,29 @@ const App = () => {
             }
           />
 
+          <Route
+            path="/ride-now"
+            element={
+              <PublicRouteNotAuth user={user}>
+                <RideNow user={user} onLogout={handleLogout} />
+              </PublicRouteNotAuth>
+            }
+          />
+
           {/* Protected routes */}
           <Route
             path="/"
             element={<MainPage user={user} onLogout={handleLogout} />}
-          >  
+          >
             <Route
-            path="/day-rentals"
-            element={
-              <LazyWrapper>
-                <DayRentals user={user} onLogout={handleLogout} />
-              </LazyWrapper>
-            }
-          />
+              path="/day-rentals"
+              element={
+                <LazyWrapper>
+                  <DayRentals user={user} onLogout={handleLogout} />
+                </LazyWrapper>
+              }
+            />
           </Route>
-          
         </Routes>
       </Router>
     </LanguageProvider>

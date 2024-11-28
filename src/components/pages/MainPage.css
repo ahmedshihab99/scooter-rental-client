@@ -300,3 +300,11 @@
   vertical-align: middle; /* Aligns the icon with the text */
 }
 
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: var(--footer-background); /* Optional: Add a subtle background color */
+}
+
