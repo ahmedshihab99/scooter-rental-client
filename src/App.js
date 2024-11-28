@@ -1,4 +1,3 @@
-// React and libraries
 import React, { useState, useEffect, Suspense } from "react";
 import {
   BrowserRouter as Router,
@@ -6,34 +5,24 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-
-// Styles and assets
 import "./App.css";
 
-// Components
 import MainPage from "./components/pages/MainPage";
 import Login from "./components/pages/auth/Login";
 import SignUp from "./components/pages/auth/SignUp";
 import DayRentals from "./components/pages/day-rentals/DayRentals";
 import RideNow from "./components/pages/ride-now/RideNow";
 
-// Contexts and services
 import { LanguageProvider } from "./components/reusable/locales/LanguageContext";
 import AuthService from "./components/services/AuthService";
 
-// Models
 import User from "./components/models/User";
-
-// Utilities
 import ClipLoader from "react-spinners/ClipLoader";
 
 const App = () => {
-  const API_BASE_URL =
-    process.env.REACT_APP_API_BASE_URL || "http://localhost:8900";
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8900";
   const [user, setUser] = useState(AuthService.getCurrentUser());
 
-  // Fetch user data on app load
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
     setUser(currentUser);
@@ -52,21 +41,18 @@ const App = () => {
     }
   }, []);
 
-  // Public route component
   const PublicRoute = ({ user, children }) => {
     return user?.token ? <Navigate to="/" /> : children;
   };
 
-  const PublicRouteNotAuth  = ({ user, children }) => {
-    return user?.token ?  children :  <Navigate to="/" />;
+  const PrivateRoute = ({ user, children }) => {
+    return user?.token ? children : <Navigate to="/login" />;
   };
 
-  // Handle logout
   const handleLogout = () => {
-    setUser(null); // Clear user state
+    setUser(null);
   };
 
-  // Lazy loading wrapper
   const LazyWrapper = ({ children }) => (
     <Suspense
       fallback={
@@ -83,9 +69,6 @@ const App = () => {
     <LanguageProvider>
       <Router>
         <Routes>
-          {/* Redirect unknown routes */}
-          <Route path="*" element={<Navigate to="/" />} />
-
           {/* Public routes */}
           <Route
             path="/login"
@@ -104,16 +87,16 @@ const App = () => {
             }
           />
 
+          {/* Private or authenticated access routes */}
           <Route
             path="/ride-now"
             element={
-              <PublicRouteNotAuth user={user}>
+              <PrivateRoute user={user}>
                 <RideNow user={user} onLogout={handleLogout} />
-              </PublicRouteNotAuth>
+              </PrivateRoute>
             }
           />
 
-          {/* Protected routes */}
           <Route
             path="/"
             element={<MainPage user={user} onLogout={handleLogout} />}
@@ -127,6 +110,9 @@ const App = () => {
               }
             />
           </Route>
+
+          {/* Fallback for unknown routes */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     </LanguageProvider>
