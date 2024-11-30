@@ -12,6 +12,8 @@ import Login from "./components/pages/auth/Login";
 import SignUp from "./components/pages/auth/SignUp";
 import DayRentals from "./components/pages/day-rentals/DayRentals";
 import RideNow from "./components/pages/ride-now/RideNow";
+import Riding from "./components/pages/riding/Riding";
+
 
 import { LanguageProvider } from "./components/reusable/locales/LanguageContext";
 import AuthService from "./components/services/AuthService";
@@ -104,6 +106,14 @@ const App = () => {
               }
             />
             <Route
+                path="/riding"
+                element={
+                  <PrivateRoute>
+                    <Riding/>
+                  </PrivateRoute>
+                }
+              />
+            <Route
               path="/"
               element={<MainPage user={user} onLogout={handleLogout} />}
             >
@@ -115,6 +125,7 @@ const App = () => {
                   </LazyWrapper>
                 }
               />
+              
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

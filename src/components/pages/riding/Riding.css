@@ -1,0 +1,98 @@
+.riding-now-page {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#map-container {
+    flex: 1;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1; /* Lower z-index to place it below the info-container */
+}
+
+.info-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--footer-background);
+    color: var(--text-color);
+    padding-bottom: 20px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    z-index: 2; /* Higher than map-container */
+}
+
+.time-display,
+.ride-fare {
+    margin-bottom: 1.5rem;
+}
+
+.end-ride-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+}
+
+.warning-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: yellow;
+    color: black;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+    z-index: 3; /* Higher than all to ensure visibility */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .info-container {
+        padding: 1.5rem;
+    }
+
+    .end-ride-button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .time-display,
+    .ride-fare {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-container {
+        padding: 1rem;
+    }
+
+    .end-ride-button {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .warning-popup {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+}
