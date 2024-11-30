@@ -39,16 +39,25 @@ const ElapsedTime = ({ onTimeWarning, setElapsedTime }) => {
     timerRef.current = setInterval(() => {
       setLocalElapsedTime((prev) => {
         const nextTime = prev + 1;
-        console.log(`Local Elapsed Time: ${nextTime} seconds`);
         setElapsedTime(nextTime); // Update parent's state
-        if (nextTime === maxRideTime - 600) { // 10 minutes left warning
+        
+        // Check if the next time equals or exceeds maxRideTime
+        if (nextTime >= maxRideTime) {
+          clearInterval(timerRef.current); // Stop the timer
+          console.log('Max ride time reached. Timer stopped.');
+          return maxRideTime; // Ensure the displayed time doesn't exceed max
+        }
+
+        // Trigger warning if 10 minutes left
+        if (nextTime === maxRideTime - 600) {
           onTimeWarning();
         }
+
         return nextTime;
       });
     }, 1000);
 
-    return () => clearInterval(timerRef.current);
+    return () => clearInterval(timerRef.current); // Cleanup timer on unmount
   }, [maxRideTime, onTimeWarning, setElapsedTime]);
 
   return (

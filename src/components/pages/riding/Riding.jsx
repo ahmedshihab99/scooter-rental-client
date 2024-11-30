@@ -31,7 +31,7 @@ const Riding = () => {
         <RideFare elapsedTime={elapsedTime} />
         <button
           className="end-ride-button"
-          onClick={() => navigate("/end-ride")}
+          onClick={() => navigate("/")}
         >
           End Ride
         </button>
