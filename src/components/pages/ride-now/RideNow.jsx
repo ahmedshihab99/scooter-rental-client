@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Webcam from 'react-webcam';
+import ScooterService from '../../services/ScooterService';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../services/axiosInstance'; 
+
 import "./RideNow.css"; 
 
 const RidingNow = () => {
@@ -11,6 +13,11 @@ const RidingNow = () => {
   const navigate = useNavigate();
   const qrScannerRef = useRef(null);
   const [isScanning, setIsScanning] = useState(false);
+  const [scooters, setScooters] = useState([]);
+
+
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
+  const API_URL = `${baseURL}/admin/scooters`;
 
   useEffect(() => {
     qrScannerRef.current = new Html5QrcodeScanner("qr-code-box", {
@@ -34,10 +41,22 @@ const RidingNow = () => {
     console.log(`QR Code Scanned: ${decodedText}`);
 
     try {
-      const response = await axiosInstance.post('/ride', {
-        scooter_serial: decodedText,
-        customer_id: getCurrentUserId() 
+
+      const response = await ScooterService.getAllScooters();
+      setScooters(response);
+
+      scooters.forEach((scooter) => {
+        console.log(`Scooter details: ${scooter.serialNumber}`);
+        if(decodedText == scooter.serialNumber){
+          console.log(`SerialNumber matches`);
+        } else{
+          console.log(`Serial number doesn't match`);
+          
+        }
       });
+      
+
+
 
       if (response.status === 200 || response.status === 201) {
         navigate("/riding"); 

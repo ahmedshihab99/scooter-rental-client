@@ -100,9 +100,7 @@ const App = () => {
             <Route
               path="/ride-now"
               element={
-                <PrivateRoute>
                   <RideNow/>
-                </PrivateRoute>
               }
             />
             <Route

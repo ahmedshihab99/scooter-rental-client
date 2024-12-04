@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axiosInstance from '../../services/axiosInstance';
-import AuthService from '../../services/AuthService';
+import React, { useState, useEffect, useRef } from "react";
+import axiosInstance from "../../services/axiosInstance";
+import AuthService from "../../services/AuthService";
 
 const ElapsedTime = ({ onTimeWarning, setElapsedTime }) => {
   const [localElapsedTime, setLocalElapsedTime] = useState(0); // Local state for internal counting
@@ -8,8 +8,8 @@ const ElapsedTime = ({ onTimeWarning, setElapsedTime }) => {
   const timerRef = useRef(null);
 
   const formatTime = (seconds) => {
-    const minutes = String(Math.floor(seconds / 60)).padStart(2, '0');
-    const secs = String(seconds % 60).padStart(2, '0');
+    const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const secs = String(seconds % 60).padStart(2, "0");
     return `${minutes}:${secs}`;
   };
 
@@ -17,7 +17,7 @@ const ElapsedTime = ({ onTimeWarning, setElapsedTime }) => {
     const fetchBalance = async () => {
       try {
         const customerId = AuthService.getCurrentUserId();
-        const response = await axiosInstance.get('/user-balance', {
+        const response = await axiosInstance.get("/user-balance", {
           params: { customer_id: customerId },
         });
 
@@ -26,7 +26,7 @@ const ElapsedTime = ({ onTimeWarning, setElapsedTime }) => {
         setMaxRideTime(maxTime);
         console.log(`Max Ride Time: ${maxTime} seconds`);
       } catch (error) {
-        console.error('Error fetching user balance:', error);
+        console.error("Error fetching user balance:", error);
       }
     };
 
@@ -40,13 +40,20 @@ const ElapsedTime = ({ onTimeWarning, setElapsedTime }) => {
       setLocalElapsedTime((prev) => {
         const nextTime = prev + 1;
         setElapsedTime(nextTime); // Update parent's state
-        
-        // Check if the next time equals or exceeds maxRideTime
-        if (nextTime >= maxRideTime) {
-          clearInterval(timerRef.current); // Stop the timer
-          console.log('Max ride time reached. Timer stopped.');
-          return maxRideTime; // Ensure the displayed time doesn't exceed max
-        }
+
+        // Stop updating the elapsed time when maxRideTime is reached
+        // if (nextTime >= maxRideTime) {
+        //   console.log("Max ride time reached. Timer stopped.");
+        //   clearInterval(timerRef.current); // Stop the timer
+        //   return prev; // Return the previous value to freeze time display
+        // }
+
+        // // Check if the next time equals or exceeds maxRideTime
+        // if (nextTime >= maxRideTime) {
+        //   clearInterval(timerRef.current); // Stop the timer
+        //   console.log('Max ride time reached. Timer stopped.');
+        //   return maxRideTime; // Ensure the displayed time doesn't exceed max
+        // }
 
         // Trigger warning if 10 minutes left
         if (nextTime === maxRideTime - 600) {
@@ -66,7 +73,7 @@ const ElapsedTime = ({ onTimeWarning, setElapsedTime }) => {
         <h3>Elapsed Time</h3>
         <p>{formatTime(localElapsedTime)}</p>
       </div>
-      <p>Maximum Ride time is {formatTime(maxRideTime)}</p>
+      <p className="max-ride-p">Maximum Ride time is {formatTime(maxRideTime)}</p>
     </div>
   );
 };

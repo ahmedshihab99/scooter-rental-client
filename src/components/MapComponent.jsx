@@ -5,11 +5,22 @@ import "leaflet/dist/leaflet.css";
 import GeofenceService from "./services/GeofenceService";
 import ScooterService from "./services/ScooterService";
 import scooterIconImg from "../assets/scooter-icon.png";
+import userPositionPinIconImg from "../assets/user-position-pin.png";
+import MapRefocusButton from "./reusable/MapRefocusButton"; 
+
 // import "./MapComponent.css";
 
 // Define the scooter icon
 const scooterIcon = new L.Icon({
   iconUrl: scooterIconImg,
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30]
+});
+
+// user position icon
+const userPositionPinIcon = new L.Icon({
+  iconUrl: userPositionPinIconImg,
   iconSize: [30, 30],
   iconAnchor: [15, 30],
   popupAnchor: [0, -30]
@@ -25,7 +36,7 @@ const UserLocationMarker = ({ userPosition }) => {
   }, [userPosition, map]);
 
   return userPosition ? (
-    <Marker position={[userPosition.lat, userPosition.lng]}>
+    <Marker position={[userPosition.lat, userPosition.lng]} icon={userPositionPinIcon}>
       <Popup>You are here</Popup>
     </Marker>
   ) : null;
@@ -131,6 +142,7 @@ const MapComponent = () => {
             <Popup>{geofence.name}</Popup>
           </Polygon>
         ))}
+        <MapRefocusButton userPosition={userPosition} />
       </MapContainer>
     </div>
   );

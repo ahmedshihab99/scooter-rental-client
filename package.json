@@ -10,6 +10,7 @@
     "browserify-zlib": "^0.2.0",
     "html5-qrcode": "^2.3.8",
     "https-browserify": "^1.0.0",
+    "jsqr": "^1.4.0",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "qr-scanner": "^1.4.2",
