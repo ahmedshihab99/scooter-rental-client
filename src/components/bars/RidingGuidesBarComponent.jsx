@@ -36,7 +36,7 @@ const RidingGuidesBarComponent = ({ isOpen, onClose }) => {
   return (
     <>
       {
-        isOpen &&(
+        (
           <div className="riding-guides-bar">
           <div className="riding-guides-bar-content" ref={ridingGuidesBarComponentRef}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>

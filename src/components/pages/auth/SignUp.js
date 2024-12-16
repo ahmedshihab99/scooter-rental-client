@@ -7,6 +7,7 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,14 +22,15 @@ const SignUp = () => {
     }
 
     const role = "USER";
-    
+
     try {
       await AuthService.signUp({
         firstName,
         lastName,
         email,
+        phoneNumber,
         password,
-        role
+        role,
       });
 
       // Navigate to login after successful signup
@@ -71,6 +73,16 @@ const SignUp = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
+                className="input-field"
+              />
+            </div>
+            <div className="form-group">
+              <label>Phone Number</label>
+              <input
+                type="number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 required
                 className="input-field"
               />

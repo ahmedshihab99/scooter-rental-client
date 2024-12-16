@@ -20,6 +20,9 @@ const login = async (email, password) => {
       token: response.data.token,
       role: decodedToken.role, // Extract the role from the payload
       email: decodedToken.sub, // Extract the email (sub) from the payload
+      firstName: response.data.firstName,
+      lastName: response.data.lastName,
+      phoneNumber: response.data.phoneNumber
     };
     // Save the token and user details to localStorage
     localStorage.setItem("user", JSON.stringify(userDetails));
@@ -34,6 +37,11 @@ const getCurrentUser = () => {
   return userStr ? JSON.parse(userStr) : null;
 };
 
+const getUserDetails = () => {
+  const response = getCurrentUser();
+  return response ? response.userDetails : null;
+}
+
 const logout = () => {
   localStorage.removeItem("user");
 };
@@ -42,5 +50,6 @@ export default {
   signUp,
   login,
   getCurrentUser,
+  getUserDetails,
   logout,
 };

@@ -13,31 +13,43 @@ import SignUp from "./components/pages/auth/SignUp";
 import DayRentals from "./components/pages/day-rentals/DayRentals";
 import RideNow from "./components/pages/ride-now/RideNow";
 import Riding from "./components/pages/riding/Riding";
-
+import Profile from "./components/pages/profile/Profile";
+import Wallet from "./components/pages/wallet/Wallet";
 
 import { LanguageProvider } from "./components/reusable/locales/LanguageContext";
 import AuthService from "./components/services/AuthService";
 import User from "./components/models/User";
 import ClipLoader from "react-spinners/ClipLoader";
+import axiosInstance from "./components/services/axiosInstance";
+
+export const UserContext = React.createContext();
+
+
 
 const App = () => {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8900";
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const [currentAuthUser, setCurrentAuthUser] = useState(null);
+
+
   // Always remember that useEffect renders when the component mounts
   useEffect(() => {
     const fetchUser = async () => {
-      const currentUser = AuthService.getCurrentUser();
-      if (currentUser) {
-        setUser(currentUser);
-      } 
-      
-      setLoading(false);
+      try {
+        const user = await AuthService.getCurrentUser();
+        setCurrentAuthUser(user);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      } finally {
+        setLoading(false); // Ensure loading is set to false even on error
+      }
     };
-
+  
     fetchUser();
-  }, [API_BASE_URL]);
+  }, []);
+  
 
   const PublicRoute = ({ children }) => {
     return user ? <Navigate to="/" /> : children;
@@ -111,9 +123,25 @@ const App = () => {
                   </PrivateRoute>
                 }
               />
+               <Route
+                path="/profile"
+                element={
+                  // <PrivateRoute>
+                    <Profile currentAuthUser= {currentAuthUser}/>
+                  // </PrivateRoute>
+                }
+              />
+              <Route
+                path="/wallet"
+                element={
+                  // <PrivateRoute>
+                    <Wallet/>
+                  // </PrivateRoute>
+                }
+              />
             <Route
               path="/"
-              element={<MainPage user={user} onLogout={handleLogout} />}
+              element={<MainPage currentAuthUser={currentAuthUser} onLogout={handleLogout} />}
             >
               <Route
                 path="/day-rentals"

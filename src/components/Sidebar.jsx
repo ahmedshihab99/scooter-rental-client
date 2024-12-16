@@ -2,16 +2,31 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import MenuItem from './reusable/MenuItem';
 import AuthService from './services/AuthService';
+import vehicleRentalLogoIcon from "../assets/vehicle-rental-logo-icon.png";
+
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
 import * as IoIcons from 'react-icons/io5';
 
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = ({currentAuthUser, isOpen, onClose }) => {
   const sidebarRef = useRef(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+  
 
-
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        console.log("Fetched user details from prop:", currentAuthUser); // Check the data
+        setCurrentUser(currentAuthUser); 
+      } catch (error) {
+        console.error("Failed to fetch currentUser details:", error);
+      }
+    };
+    fetchUserDetails();
+  }, [currentAuthUser]); // Add currentAuthUser as a dependency
+  
 
   // Handle clicks outside the sidebar
   useEffect(() => {
@@ -49,8 +64,16 @@ const Sidebar = ({ isOpen, onClose }) => {
       className={`sidebar ${isOpen ? 'open' : ''}`}
     >
       <div className="sidebar-header">
-        <h3>John</h3>
-        <p>+20123456789</p>
+      <img
+        src={vehicleRentalLogoIcon}
+        alt="Logo Icon"
+        className="app-logo"
+      />
+        <div>
+          <h3>{`${AuthService.getCurrentUser()?.firstName ?? ""}`}</h3>
+            <p>{`${AuthService.getCurrentUser()?.phoneNumber ?? ""}`}</p>
+        </div>
+        
       </div>
       <ul className="sidebar-items">
         <MenuItem label="History" icon={MdIcons.MdHistory} path="/history" />

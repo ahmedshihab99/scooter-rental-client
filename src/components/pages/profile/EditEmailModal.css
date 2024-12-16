@@ -1,0 +1,97 @@
+/* General styles for the modal */
+.scooter-edit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Modal content box */
+.modal-content {
+    background-color: #ffffff;
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    border-radius: 25px;
+}
+
+/* Modal title */
+.modal-content h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form styles */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+}
+
+/* Input field */
+.modal-content input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Buttons container */
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+/* Button styles */
+.modal-buttons button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effects */
+.modal-buttons button:hover {
+    opacity: 0.9;
+}
+
+/* Specific button colors */
+.modal-buttons button[style*="background-color: green"] {
+    background-color: #28a745; /* Green for update */
+    color: white;
+}
+
+.modal-buttons button[style*="background-color: gray"] {
+    background-color: #6c757d; /* Gray for cancel */
+    color: white;
+}
+
+.modal-buttons button[style*="background-color: red"] {
+    background-color: #dc3545; /* Red for delete */
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .modal-content{
+        margin-right:1.5rem;
+        margin-left:1.5rem;
+
+    }
+}

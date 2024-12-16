@@ -30,6 +30,25 @@
   font-family: Arial, sans-serif;
 }
 
+.support-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  width: 20px;
+  padding: 0.5rem 1rem;
+  background-color: var(--footer-background);
+  color: #fff;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}
+
 
 
 /* Sidebar */
@@ -43,11 +62,19 @@
   z-index: 1000; /* Ensure it stays above the map and other elements */
 }
 
+.app-logo{
+  width: 55px;
+  height: 55px;
+  align-self: center;
+}
+
 .sidebar.open {
   transform: translateX(0);
 }
 
 .sidebar-header {
+  display: flex;
+  gap: 16px;
   padding: 1.25rem; /* Padding relative to font size */
   background-color: #00346c;
   text-align: center;

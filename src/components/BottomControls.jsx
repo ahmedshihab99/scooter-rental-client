@@ -1,6 +1,5 @@
 import React from "react";
 import ScanIcon from "../assets/scan-icon.png";
-import MapRefocusButton from "./MapRefocusButton"; // Import the new refocus button component
 
 const BottomControls = ({ handleMenuClick, route, showRidingGuides, userPosition }) => {
   return (
@@ -19,7 +18,6 @@ const BottomControls = ({ handleMenuClick, route, showRidingGuides, userPosition
             <span>Scan to Ride</span>
           </button>
           {/* Replace the user-position-button with MapRefocusButton */}
-          <MapRefocusButton userPosition={userPosition} />
         </>
       ) : route === "day-rentals" ? (
         <button className="new-rental-button">
